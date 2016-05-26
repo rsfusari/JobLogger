@@ -4,12 +4,12 @@ namespace Logger.ConsoleApplication.Logging.Adapters
 {
     public class ConsoleLogging : ILogger
     {
-        public LogEntry GetLogEntry()
+        public ILogEntry GetLogEntry()
         {
             return new LogEntry();
         }
 
-        public bool Write(LogEntry logEntry)
+        public bool Write(ILogEntry logEntry)
         {
             if (string.IsNullOrWhiteSpace(logEntry.Message)) return false;
             switch (logEntry.Severity)

@@ -1,6 +1,6 @@
 ﻿namespace Logger.ConsoleApplication.Logging
 {
-    public class LogEntry
+    public class LogEntry: ILogEntry
     {
         public string Message { get; set; }
 

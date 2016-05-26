@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Logger.ConsoleApplication.Logging.Adapters.Definitions;
+using System;
 using System.Configuration;
 using System.IO;
 namespace Logger.ConsoleApplication.Logging.Adapters
 {
-    public class FileTextLogging : ILogger
+    public class FileTextLogging : IFileTextLogging
     {
-        public LogEntry GetLogEntry()
+        public ILogEntry GetLogEntry()
         {
             return new LogEntry();
         }
 
-        public bool Write(LogEntry logEntry)
+        public bool Write(ILogEntry logEntry)
         {
             try
             {

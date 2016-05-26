@@ -46,6 +46,9 @@
   <ItemGroup>
     <Compile Include="JobLogger.cs" />
     <Compile Include="JobLoggerCodeReview.cs" />
+    <Compile Include="Logging\Adapters\Definitions\IDataBaseLogging.cs" />
+    <Compile Include="Logging\Adapters\Definitions\IFileTextLogging.cs" />
+    <Compile Include="Logging\ILogEntry.cs" />
     <Compile Include="LogService.cs" />
     <Compile Include="Infraestructure\Factory.cs" />
     <Compile Include="Logging\Adapters\ConsoleLogging.cs" />
@@ -65,7 +68,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

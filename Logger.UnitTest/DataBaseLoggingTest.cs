@@ -1,42 +1,43 @@
 ﻿using Logger.ConsoleApplication.Logging;
 using Logger.ConsoleApplication.Logging.Adapters;
+using Logger.ConsoleApplication.Logging.Adapters.Definitions;
+using Moq;
+using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
+
 
 namespace Logger.UnitTest
 {
+    [TestFixture]
     public class DataBaseLoggingTest
     {
-        [Fact]
-        public void CanWriteDataBase()
-        {
-            var textLogging = new DataBaseLogging();
-            var logEntry = new LogEntry();
-            logEntry.Message = "Mensaje";
-            logEntry.Severity = Severity.Message;
+        private Mock<IDataBaseLogging> _logger;
 
-            Assert.True(textLogging.Write(logEntry));
+        [SetUp]
+        public void Setup()
+        {
+            _logger = new Mock<IDataBaseLogging>();
+            _logger.Setup(s => s.GetLogEntry()).Returns(new LogEntry { Message = "Message", Severity = Severity.Error });
         }
 
-        [Fact]
+        [Test]
+        public void CanWriteDataBase()
+        {
+            var dataBaseLogging = new DataBaseLogging();
+            Assert.True(dataBaseLogging.Write(_logger.Object.GetLogEntry()));
+        }
+
+        [Test]
         public void DataBaseWritingCorrect()
         {
-            var textLogging = new FileTextLogging();
-            var logEntry = new LogEntry();
-            logEntry.Message = "Mensaje";
-            logEntry.Severity = Severity.Message;
-            textLogging.Write(logEntry);
+            var dataBaseLogging = new DataBaseLogging();
+            var logEntry = _logger.Object.GetLogEntry();
+
+            dataBaseLogging.Write(logEntry);
 
             SqlConnection connection = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
             connection.Open();
-
-            SqlCommand command = new SqlCommand("Insert into Log Values('" + DateTime.Now.ToShortDateString() + " - " + logEntry.Message + "', " + ((int)logEntry.Severity).ToString() + ")", connection);
-            command.ExecuteNonQuery();
 
             SqlCommand commandReader = new SqlCommand("SELECT TOP 1 * FROM Log ORDER BY Id DESC", connection);
 
@@ -47,7 +48,7 @@ namespace Logger.UnitTest
 
             var expectedValue = ((int)logEntry.Severity).ToString() + " - " + DateTime.Now.ToShortDateString() + " - " + logEntry.Message;
 
-            Assert.Equal(expectedValue, dataBaseValue);
+            Assert.That(expectedValue, Is.EqualTo(dataBaseValue));
         }
     }
 }

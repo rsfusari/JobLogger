@@ -2,8 +2,8 @@
 {
     public interface ILogger
     {
-        LogEntry GetLogEntry();
+        ILogEntry GetLogEntry();
 
-        bool Write(LogEntry logEntry);
+        bool Write(ILogEntry logEntry);
     }
 }

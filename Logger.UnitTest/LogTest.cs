@@ -1,48 +1,47 @@
 ﻿using Logger.ConsoleApplication;
 using Logger.ConsoleApplication.Logging.Adapters;
-using System;
-using System.Linq;
-using Xunit;
+using NUnit.Framework;
 
 namespace Logger.UnitTest
 {
+    [TestFixture]
     public class LogTest
     {
-        [Fact]
+        [Test]
         public void CanCreateDataBaseInstance()
         {
             var instance = LogService.Log.LoggingOn(ConsoleApplication.Logging.LogOn.DatBase);
 
-            Assert.IsType<DataBaseLogging>(instance.Logger);
+            Assert.IsInstanceOf<DataBaseLogging>(instance.Logger);
         }
 
-        [Fact]
+        [Test]
         public void CanCreateConsoleInstance()
         {
             var instance = LogService.Log.LoggingOn(ConsoleApplication.Logging.LogOn.Console);
 
-            Assert.IsType<ConsoleLogging>(instance.Logger);
+            Assert.IsInstanceOf<ConsoleLogging>(instance.Logger);
         }
 
-        [Fact]
+        [Test]
         public void CanCreateFileTextInstance()
         {
             var instance = LogService.Log.LoggingOn(ConsoleApplication.Logging.LogOn.FileSystem);
 
-            Assert.IsType<FileTextLogging>(instance.Logger);
+            Assert.IsInstanceOf<FileTextLogging>(instance.Logger);
         }
 
-        [Fact]
+        [Test]
         public void CanSetGlobalInstance()
         {
             LogService.SetLog(new FileTextLogging());
 
             var instance = LogService.Log.Message("Message").With(ConsoleApplication.Logging.Severity.Warning);
 
-            Assert.IsType<FileTextLogging>(instance.Logger);
+            Assert.IsInstanceOf<FileTextLogging>(instance.Logger);
         }
 
-        [Fact]
+        [Test]
         public void CanWriteNullMessage()
         {
             LogService.SetLog(new ConsoleLogging());
@@ -52,7 +51,7 @@ namespace Logger.UnitTest
             Assert.False(isLogged);
         }
 
-        [Fact]
+        [Test]
         public void CanWriteNullLoggingType()
         {
             LogService.SetLog(new ConsoleLogging());

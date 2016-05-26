@@ -8,7 +8,7 @@ namespace Logger.ConsoleApplication.Logging
         #region Attributes
 
         private ILogger logger;
-        private LogEntry entry;
+        private ILogEntry entry;
 
         #endregion
 

@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Logger.ConsoleApplication.Logging.Adapters.Definitions;
+using System;
 using System.Data.SqlClient;
 
 namespace Logger.ConsoleApplication.Logging.Adapters
 {
-    public class DataBaseLogging : ILogger
+    public class DataBaseLogging : IDataBaseLogging
     {
-        public LogEntry GetLogEntry()
+        public ILogEntry GetLogEntry()
         {
             return new LogEntry();
         }
 
-        public bool Write(LogEntry logEntry)
+        public bool Write(ILogEntry logEntry)
         {
             try
             {
