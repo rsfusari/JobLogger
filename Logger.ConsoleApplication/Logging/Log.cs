@@ -1,5 +1,7 @@
 ﻿using Logger.ConsoleApplication.Infraestructure;
 using Logger.ConsoleApplication.Logging.Adapters;
+using System;
+using System.Text;
 
 namespace Logger.ConsoleApplication.Logging
 {
@@ -60,6 +62,13 @@ namespace Logger.ConsoleApplication.Logging
         public bool Write()
         {
             return this.logger.Write(this.entry);
+        }
+
+        public string GetFullMessage()
+        {
+            var returnString = new StringBuilder();
+
+            return (returnString.Append(((int)entry.Severity).ToString()).Append(" - ").Append(DateTime.Now.ToShortDateString()).Append(" - ").Append(entry.Message)).ToString();
         }
         #endregion
 

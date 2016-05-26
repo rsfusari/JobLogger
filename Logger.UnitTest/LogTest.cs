@@ -1,6 +1,8 @@
 ﻿using Logger.ConsoleApplication;
 using Logger.ConsoleApplication.Logging.Adapters;
 using NUnit.Framework;
+using System;
+using System.Text;
 
 namespace Logger.UnitTest
 {
@@ -60,6 +62,20 @@ namespace Logger.UnitTest
 
             Assert.False(isLogged);
         }
-       
+
+        [Test]
+        public void GetFullMessageDescription()
+        {
+
+            var log = LogService.Log.LoggingOn(ConsoleApplication.Logging.LogOn.FileSystem).Message("Message").With(ConsoleApplication.Logging.Severity.Error);
+
+            var fullDescription = log.GetFullMessage();
+
+            var expectedDescription = new StringBuilder();
+            expectedDescription.Append("2 - ").Append(DateTime.Now.ToShortDateString()).Append(" - Message");
+
+            Assert.That(fullDescription, Is.EqualTo(expectedDescription.ToString()));
+        }
+
     }
 }
