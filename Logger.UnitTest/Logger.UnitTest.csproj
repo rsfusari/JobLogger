@@ -90,6 +90,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ConsoleLoggingTest.cs" />
     <Compile Include="DataBaseLoggingTest.cs" />
     <Compile Include="FileTextLoggingTest.cs" />
     <Compile Include="LogTest.cs" />

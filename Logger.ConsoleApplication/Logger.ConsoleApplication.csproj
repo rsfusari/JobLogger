@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="JobLogger.cs" />
     <Compile Include="JobLoggerCodeReview.cs" />
+    <Compile Include="Logging\Adapters\Definitions\IConsoleLogging.cs" />
     <Compile Include="Logging\Adapters\Definitions\IDataBaseLogging.cs" />
     <Compile Include="Logging\Adapters\Definitions\IFileTextLogging.cs" />
     <Compile Include="Logging\ILogEntry.cs" />

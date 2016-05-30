@@ -1,5 +1,7 @@
 ﻿using Logger.ConsoleApplication;
+using Logger.ConsoleApplication.Logging;
 using Logger.ConsoleApplication.Logging.Adapters;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Text;
@@ -77,5 +79,20 @@ namespace Logger.UnitTest
             Assert.That(fullDescription, Is.EqualTo(expectedDescription.ToString()));
         }
 
+        [Test]
+        public void VerifyILoggerWriteIsCalled()
+        {
+            //Arrange
+            var logger = new Mock<ILogger>();
+            logger.Setup(x => x.Write(It.IsAny<ILogEntry>())).Verifiable();
+
+            var log = new Log(logger.Object);
+
+            //Act
+            log.Write();
+
+            //Assert
+            logger.Verify();
+        }
     }
 }

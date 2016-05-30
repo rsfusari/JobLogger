@@ -43,5 +43,21 @@ namespace Logger.UnitTest
             var result = reader.ReadToEnd().Split('\n');
             Assert.That(expectedValue.ToString(), Is.EqualTo(result[result.Length - 2].Replace("\r", string.Empty)));
         }
+
+        [Test]
+        public void VerifyIFileTextLoggingWriteIsCalled()
+        {
+            //Arrange
+            var logger = new Mock<IFileTextLogging>();
+            logger.Setup(x => x.Write(It.IsAny<ILogEntry>())).Verifiable();
+
+            var log = new Log(logger.Object);
+
+            //Act
+            log.Write();
+
+            //Assert
+            logger.Verify();
+        }
     }
 }

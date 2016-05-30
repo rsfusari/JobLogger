@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Logger.ConsoleApplication.Logging.Adapters.Definitions;
+using System;
 
 namespace Logger.ConsoleApplication.Logging.Adapters
 {
-    public class ConsoleLogging : ILogger
+    public class ConsoleLogging : IConsoleLogging
     {
         public ILogEntry GetLogEntry()
         {

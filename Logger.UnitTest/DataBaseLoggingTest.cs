@@ -50,5 +50,21 @@ namespace Logger.UnitTest
 
             Assert.That(expectedValue, Is.EqualTo(dataBaseValue));
         }
+
+        [Test]
+        public void VerifyIDataBaseLoggingWriteIsCalled()
+        {
+            //Arrange
+            var logger = new Mock<IDataBaseLogging>();
+            logger.Setup(x => x.Write(It.IsAny<ILogEntry>())).Verifiable();
+
+            var log = new Log(logger.Object);
+
+            //Act
+            log.Write();
+
+            //Assert
+            logger.Verify();
+        }
     }
 }
